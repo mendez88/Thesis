@@ -1,0 +1,25 @@
+\fancyhead[RE]{\nouppercase{\bfseries\leftmark}}
+\fancyhead[LO]{\nouppercase{\bfseries\rightmark}}
+\fancyhead[LE,RO]{\bfseries\thepage}
+\fancyfoot{}
+\tableofcontents
+\label{toc:ToC}
+\captionsetup{lofdepth=2}
+
+\listoffigures
+\label{toc:listoffig}
+\addcontentsline{toc}{chapter}{List of Figures}
+
+\cleardoublepage
+\thispagestyle{empty}
+\listoftables
+\label{toc:listoftbl}
+\addcontentsline{toc}{chapter}{List of Tables}
+%\listofreactions
+%\addcontentsline{toc}{chapter}{List of Reactions}
+
+% Uncomment below to add a list of tables. Probably necessary for sample information table. 
+
+%\label{toc:listoftbl}
+%\listoftables
+%\addcontentsline{toc}{chapter}{List of Tables}

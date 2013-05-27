@@ -1,0 +1,691 @@
+\documentclass[professionalfont]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{multicol}
+\usepackage{empheq}
+\usepackage{tikz}
+\usepackage[nodayofweek]{datetime} 
+\usepackage[method=mhchem]{chemmacros}
+
+\renewcommand{\dateseparator}{-}
+
+\newcommand{\PTO}{\ce{PbTiO3}}
+
+\newcommand{\PZT}{\ce{PbZr_{x}Ti_{1-x}O3}}
+
+\newcommand{\Deg}{$^{\circ}$}
+\newcommand{\degC}{$^{\circ}$C}
+\newcommand{\Tc}{T$\mathrm{_{C}}$}
+
+\newcommand{\TiIon}{\ce{Ti^{4+}}}
+\newcommand{\OIon}{\ce{O^{2-}}}
+\newcommand{\PbIon}{\ce{Pb^{2+}}}
+\newcommand{\ZrIon}{\ce{Zr^{4+}}}
+\newcommand{\TiOiPr}{Ti-o-\emph{i}-Pr}
+
+\newcommand{\TMHD}{Pb(TMHD)$_{2}$}
+\newcommand{\tmhd}{\TMHD}
+\newcommand{\HFAc}{Pb(HFAc)$_{2}$}
+\newcommand{\hfac}{\HFAc}
+ 
+% usage: \tikzpic{<x percent>}{<y percent>}{<image size>}{<image name>}
+\newcommand*{\tikzpic}[4]{%
+\begin{tikzpicture}[remember picture,overlay]
+\node at (current page.south west) [xshift=#1\paperwidth,yshift=#2\paperheight] {\includegraphics[width=#3\linewidth]{#4}};
+\end{tikzpicture}%
+}
+
+\title[ALD of Complex Oxides]%
+{\LARGE A Method for Atomic Layer Deposition\\
+of Complex Oxide Thin Films}
+\author[B. R. Beatty]{\underline{{\Large Brian R. Beatty}}\\[1em]%
+				M.S. Thesis in Materials Science and Engineering}
+\date[12/11/2012]{\small 11$^{\mathrm{th}}$ December, 2012}
+\institute[Drexel University]{\large Drexel University, Philadelphia, PA}
+\titlegraphic{\includegraphics[width=0.35\textwidth]{./Logos/mse_logo_large}}
+
+
+\usetheme{POLIMI}
+\setcounter{tocdepth}{1}
+
+\usepackage{setspace}
+
+\AtBeginSection[]
+{
+  \begin{frame}{Outline}
+    \Large
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Outline}
+%\begin{multicols}{2}
+\Large
+\tableofcontents
+%\end{multicols}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Objectives}
+
+\begin{frame}{Project Objectives}
+
+\begin{itemize}
+	\item Develop method for identifying best candidate precursors for depositing complex oxide films
+	\vspace{1.5em}
+	\item Determine optimal deposition parameters to obtain desired film stoichiometry
+	\vspace{1.5em}
+	\item Characterization of various film properties, for use in further optimizing subsequent depositions
+	\vspace{1.5em}
+	\item Successful deposition of desired material: \\Perovskite Lead Titanate (\ce{PbTiO3})
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Atomic Layer Deposition}
+
+%\begin{frame}{Atomic Layer Deposition}
+%	\begin{itemize}
+%		\item What is ALD?\vspace{1.5em}
+%		\item What are its advantages and disadvantages?\vspace{1.5em}
+%		\item Where is it used?
+%	\end{itemize}
+%\end{frame}
+
+\begin{frame}{Atomic Layer Deposition}
+	\begin{block}{What is ALD?}
+		\begin{itemize}
+			\item Chemical deposition method, similar to CVD
+			\item Separation of deposition reaction into metal chemisorption and subsequent oxidation
+			\item Restricts reactions to surface-vapor interactions, no vapor-vapor reactions possible
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Atomic Layer Deposition}
+	\begin{overprint}
+		\onslide<1>\centerline{\includegraphics[width=0.9\textwidth]{./Graphics/Synthesis/TMA1}}
+		\onslide<2>\centerline{\includegraphics[width=0.9\textwidth]{./Graphics/Synthesis/TMA2}}
+		\onslide<3>\centerline{\includegraphics[width=0.9\textwidth]{./Graphics/Synthesis/TMA3}}
+		\onslide<4>\centerline{\includegraphics[width=0.9\textwidth]{./Graphics/Synthesis/TMA4}}
+		\onslide<5>\centerline{\includegraphics[width=0.9\textwidth]{./Graphics/Synthesis/TMA5}}
+		\onslide<6>\centerline{\includegraphics[width=0.9\textwidth]{./Graphics/Synthesis/TMA6}}
+	\end{overprint}
+\end{frame}
+
+\begin{frame}{Atomic Layer Deposition}
+	\vspace{-0.5cm}
+	\begin{columns}[t]
+		\column{0.5\textwidth}
+			\begin{block}{Advantages}
+				\begin{itemize}
+					\item Ultra-high film thickness resolution (\AA-level)
+					\item High film conformality\\(3D structure coating)
+					\item Lower deposition temperatures
+					\item Potentially lower environmental/economic impact
+				\end{itemize}
+			\end{block}
+		\column{0.5\textwidth}
+			\begin{block}{Disadvantages}
+				\begin{itemize}
+					\item Slow deposition rates
+					\item Precursor chemistry is often difficult and complex (organometallic compounds)
+					\item Many material systems lack developed ALD processes
+				\end{itemize}
+			\end{block}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Atomic Layer Deposition}
+	Where is ALD used?\vspace{1.5em}
+	\begin{itemize}%[<+->]
+		\item Integrated Circuits: Transistor Gate Oxides (high-k)\vspace{1.5em}
+		\item Alternative Energy: Low tolerances for layer thickness, high film uniformity across surface
+		\vspace{1.5em}
+		\item Biomedical: Uniform coating of highly porous structures
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Thin Film Growth}
+
+\subsection{Film Precursors}
+\begin{frame}{Thin Film Growth: Film Precursors}
+	\begin{columns}[c]
+		\column{0.5\textwidth}
+			\begin{block}{Titanium Precursor}
+				Titanium(IV) tetraisopropoxide: {Ti-o-\emph{i} -Pr}
+			\end{block}
+			\vspace{0.5em}
+			\begin{block}{Oxidizer}
+				\begin{itemize}
+					\item \ce{H2O} and \ce{O2}/\ce{O3} mixtures commonly used in literature
+					\item \ce{O2}/\ce{O3} was chosen for higher compatibility with Pb precursors
+				\end{itemize}
+			\end{block}
+		\column{0.5\textwidth}
+			\begin{block}{Lead Precursors}
+				\begin{enumerate}
+					\item Bis(2,2,6,6-tetramethyl -3,5-heptanedionato) Lead(II): Pb(TMHD)$_{2}$
+					\item Lead(II) hexafluoro- acetylacetonate: Pb(HFAc)$_{2}$
+				\end{enumerate}
+			\end{block}
+	\end{columns}
+\end{frame}
+
+\subsection{Sample Substrates}
+\begin{frame}{Thin Film Growth: Substrates}
+\vfill
+\begin{itemize}
+	\large
+	\item 200 nm \ce{SiO2}/Si(100)
+	\begin{itemize}
+		\item 200 nm of thermally grown silica on crystalline silica.
+		\item Amorphous top layer
+	\end{itemize}
+	\vspace{1.5em}
+	\item 15 nm Pt(111)/200 nm \ce{SiO2}/Si(100)
+	\begin{itemize}
+		\item 15 nm of ALD-grown platinum on the \ce{SiO2}/Si(100) substrate
+		\item Metallic (crystalline) top layer
+	\end{itemize}
+	\vspace{1.5em}
+	\item \ce{SrTiO3}(100)
+	\begin{itemize}
+		\item Single crystalline oriented strontium titanate wafer.
+	\end{itemize}
+	\vspace{1.5em}
+\end{itemize}
+\vfill
+\end{frame}
+
+\subsection{Deposition Parameters}
+\begin{frame}{Thin Film Growth: Deposition Parameters}
+\begin{itemize}
+	\large
+	\item Growth Temperature
+	\vspace{1.5em}
+	\item Precursor Dosage
+	\vspace{1.5em}
+	\item Purge Time
+	\vspace{1.5em}
+	\item Precursor Exposure
+	\vspace{1.5em}
+	\item Post-Deposition Annealing
+	\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Characterization Methods}
+
+\subsection{Thermal Analysis}
+\begin{frame}
+	\vspace{-0.5cm}
+	\frametitle{Characterization Methods: Thermal Analysis}
+	\begin{columns}[t]
+		\column{0.5\textwidth}
+			\begin{block}{Thermogravimetric Analysis}
+				\begin{itemize}
+					\item Method for analyzing mass loss rates as function of temperature
+					\item Useful for determining optimal evaporation temperatures
+					\item Can indicate multi-step evaporation/chemical conversion
+				\end{itemize}
+			\end{block}
+		\column{0.5\textwidth}
+			\begin{block}{Differential Calorimetry}
+				\begin{itemize}
+					\item Allows insight into energetic transformations as a function of temperature
+					\item Indicates phase changes, evaporation energies, and structural changes
+					\item Useful for analyzing the stability of precursors at desired temperatures
+				\end{itemize}
+			\end{block}
+	\end{columns}
+\end{frame}
+
+\subsection{Composition Analysis}
+\begin{frame}{Characterization Methods: Composition Analysis}
+
+\begin{overprint}
+	\onslide<1>%
+		\vspace{0.5cm}
+		\textbf{\large X-Ray Fluorescence Spectroscopy (XRF)}\vspace{1.5em}
+		\begin{itemize}
+			\item Similar to EDXS but uses X-rays in place of energetic electrons\vspace{1.5em}
+			\item Much lower noise floor (no Bremsstrahlung radiation)\vspace{1.5em}
+			\item Capable of quantitative compositional analysis of ultra-thin films
+		\end{itemize}
+	\onslide<2>\vspace{-0.5cm}\centerline{\includegraphics[width=0.9\textwidth]{./graphics/characterization/EDXS-scheme}}
+\end{overprint}
+
+\end{frame}
+
+\subsection{Film Growth Rates}
+\begin{frame}{Characterization Methods: Film Growth Rates}
+\begin{overprint}
+	\onslide<1>
+		\vspace{0.5cm}
+		\textbf{\large Ellipsometry}\vspace{1.5em}
+		\begin{itemize}
+			\item Non-destructive optical film analysis method\vspace{1.5em}
+			\item Capable of determining numerous optical/electronic parameters of film\vspace{1.5em}
+			\item Primarily used to determine post-deposition film thicknesses and thus growth rates
+		\end{itemize}
+	\onslide<2>
+		\centerline{\includegraphics[width=\textwidth]{./graphics/characterization/ellipsometryDiagram_simple}}
+\end{overprint}
+\end{frame}
+
+\subsection{Phase Identification}
+\begin{frame}{Characterization Methods: Phase Identification}
+
+\textbf{\large X-Ray Diffractometry (XRD)}
+\vspace{1.5em}
+\begin{itemize}
+	\item Standard technique used to identify materials and phases/orientations
+	\vspace{1.5em}
+	\item Analysis produces information about presence of particular lattice spacings
+	\vspace{1.5em}
+	\item Identifying lattice spacings (via databases or previous studies in literature) can indicate presence and orientation of specific materials and phases 
+\end{itemize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Results}
+
+\subsection{Thermal}
+\begin{frame}{Results: Thermal Analysis}
+\begin{overprint}
+	\onslide<1>
+		\begin{center}
+%		\vspace{-0.5cm}
+		DSC Cycles of \ce{Pb(HFAc)2} and \ce{Pb(TMHD)2}\\
+		\vspace{0.5cm}
+		\centerline{\includegraphics[width=0.45\textwidth]{./graphics/data/dsc/hfac}%
+			\hspace{0.5cm}%
+			\includegraphics[width=0.45\textwidth]{./graphics/data/dsc/tmhd}}
+		\end{center}
+	\onslide<2>
+		\begin{center}
+%		\vspace{-0.5cm}
+		High-Temp. DSC Cycle of \ce{Pb(TMHD)2}\\
+		\centerline{\includegraphics[width=0.6\textwidth]{./graphics/data/dsc/tmhd-300}}%
+		\end{center}
+	\onslide<3>
+		\begin{center}
+		TGA Traces for \ce{Pb(HFAc)2}\\
+		\vspace{0.5cm}
+		\centerline{\includegraphics[width=\textwidth]{./graphics/data/tga/hfac}}
+		\end{center}
+	\onslide<4>
+		\begin{center}
+		TGA Traces for \ce{Pb(TMHD)2}\\
+		\vspace{0.5cm}
+		\centerline{\includegraphics[width=\textwidth]{./graphics/data/tga/tmhd}}
+		\end{center}
+	\onslide<5>
+		\begin{center}
+		Constant Temperature Studies of \ce{Pb(HFAc)2} and \ce{Pb(TMHD)2}\\
+		\vspace{0.5cm}
+		\centerline{\includegraphics[width=\textwidth]{./graphics/data/tga/hold}}
+		\end{center}		
+\end{overprint}
+\end{frame}
+
+\subsection{Film Growth}
+
+\begin{frame}{Results: Deposition and Processing Parameters}
+	\vfill
+	\begin{center}
+	\begin{tabular}{ccccccc}
+	\toprule
+	&&&&&\multicolumn{2}{c}{Annealing}\\ \cmidrule{6-7}
+	Temp.		&Run \#	&Pb:Ti	 &Cycles 	&Subs. 		&Temp. 		&Time \\ 
+	(\degC{})		&		&Ratio	&		&Type		&(\degC{})	&(min) \\ \midrule%
+	225			&20		&3:1		&200	&Si		 	&N/A			&N/A		\\
+				&		&		&		&Pt-Si		&650		&90		\\
+				&		&		&		&STO		&650		&90		\\
+				&21		&3:1		&150	&Si		 	&N/A			&N/A		\\
+				&		&		&		&Pt-Si		&650		&90		\\
+				&		&		&		&STO		&650		&90		\\
+				&22		&3:1		&150	&Si		 	&N/A			&N/A		\\
+				&		&		&		&Pt-Si		&650		&90		\\
+				&28		&3:1		&120	&STO		&650		&90		\\				
+	\bottomrule
+	\end{tabular}
+	\end{center}
+	\vfill
+\end{frame}
+
+\begin{frame}{Results: Film Growth Rates}
+\begin{overprint}
+	\onslide<1>
+	\centerline{\includegraphics[width=0.7\textwidth]{./graphics/data/ellipsometry/Ellip-Rates}}
+	\onslide<2>
+	\vspace*{0.5cm}
+	\begin{center}
+	\begin{tabular}{cccc}
+	\toprule
+	Run \#	&Subs. 	&Thickness 	&Growth Rate 	\\ 
+			&Type	&(nm)		&(\AA/cycle) 	\\ \midrule%
+	20		&Si		&71.8		&3.59		\\
+			&Pt-Si	&64.4		&3.22		\\
+			&STO	&73.6		&3.68		\\
+	21		&Si		&53.2		&3.54		\\
+			&Pt-Si	&45.8		&3.05		\\
+			&STO	&52.9		&3.53		\\
+	22		&Si		&53.3		&3.55		\\
+			&Pt-Si	&46.5		&3.10		\\
+	28		&STO	&41.0		&3.42		\\				
+	\bottomrule
+	\end{tabular}
+	\end{center}
+	\vfill
+\end{overprint}
+\end{frame}
+
+\subsection{Composition Analysis}
+\begin{frame}{Results: Composition Analysis}
+	\small
+	\begin{center}
+	\vspace{-0.5cm}
+	Compositions of Selected Sample Films\\\vspace{0.5em}
+	\begin{tabular}{l l r r r}
+	\toprule
+	&&\multicolumn{3}{c}{Composition (\%)}\\
+	\cmidrule{3-5}
+	Run \#&Substrate&Lead&Titanium&Ti:Pb Ratio\\
+	\midrule
+% 	Run	Sub-Type		Pb%		Ti%		Ti:Pb ratio
+	20	&\ce{SiO2}	&56.6	&43.4	&0.769\\
+		&Pt-Si		&51.5	&48.5	&0.944\\
+	21	&\ce{SiO2}	&69.6	&30.4	&0.437\\
+		&Pt-Si		&56.1	&43.9	&0.783\\
+	22	&\ce{SiO2}	&67.7	&32.3	&0.478\\
+		&Pt-Si		&56.1	&43.9	&0.784\\
+	24	&\ce{SiO2}	&69.0	&31.0	&0.450\\
+		&Pt-Si		&62.2	&37.8	&0.609\\
+	\bottomrule
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+\subsection{Phase Identification}
+\begin{frame}{Results: Phase Identification}
+\begin{overprint}
+	\onslide<1>
+		\begin{center}
+		\textbf{\Large XRD of 20 on Pt-Si}\vspace{0.25cm}
+		\centerline{\includegraphics[width=\textwidth]{./graphics/data/xrd/20Pt}}
+		\end{center}
+	\onslide<2>
+		\begin{center}
+		\textbf{\Large XRD of 23 on Pt-Si}
+		\centerline{\includegraphics[width=0.95\textwidth]{./graphics/data/xrd/23Pt}}
+		\end{center}
+	\onslide<3>
+		\begin{center}
+		\textbf{\Large XRD of 28 on STO(100)}
+		\centerline{\includegraphics[width=\textwidth]{./graphics/data/xrd/28STO}}
+		\end{center}
+\end{overprint}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Conclusions}
+
+\begin{frame}{Conclusions}
+\large
+\begin{itemize}
+\item A procedure for identifying best precursor compounds for ALD deposition of oxides was created
+\vspace{1.5em}
+\item A method for designing and implementing an ALD process for a novel material has been developed
+\vspace{1.5em}
+\item Successfully deposited thin films containing the target material: perovskite \ce{PbTiO3}
+\vspace{1.5em}
+\item Films contain significant amounts of impurity phases
+\end{itemize}
+\end{frame}
+
+\subsection{Future Work}
+\begin{frame}{Conclusions: Future Work}
+\begin{itemize}
+\item Refine process to maximize phase purity and film epitaxy
+\vspace{2em}
+\item Characterize ferroelectric character of crystallized films
+\vspace{2em}
+\item Investigate doping of thin films (e.g. \ce{PbZr_{x}Ti_{1-x}O3})
+\vspace{2em}
+\item Apply process to other oxide families (e.g. \ce{BaSrTiO3})
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\vfill
+	\begin{center}
+		{\Huge Questions?}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Ellipsometry Model}
+\begin{overprint}
+\onslide<1>
+\vfill
+\begin{center}
+{\bfseries\large Cauchy Model as used by WVASE32}\\
+\begin{subequations}
+\label{eq:cauchy}
+\begin{align}
+	n\left(\lambda\right) &= A_{n} + \frac{B_{n}}{\lambda^{2}}+\frac{C_{n}}{\lambda^{4}}+\cdots\\
+        	\kappa\left(\lambda\right) &= A_{\kappa}e^{B_{\kappa}\left(\frac{hc}{\lambda}\right)-C_{\kappa}}
+\end{align}
+\end{subequations}
+\end{center}
+\vfill
+\onslide<2>
+\vfill
+\begin{center}
+{\bfseries\large Tauc-Lorentz Model as used by WVASE32}\\
+\begin{subequations}
+\label{eq:TaucLorentz}
+\begin{align}
+	\label{eq:TaucLorentz-1}
+	\epsilon_{1}=\frac{2}{\pi}P\int^{\infty}_{E_{g}}\frac{\xi\epsilon_{2}\left(\xi\right)}{\xi^{2}-E^{2}}\,%
+				\mathrm{d}\xi & \hspace{2.5cm}
+\end{align}
+\begin{empheq}[left=\empheqlbrace]{align}
+	\epsilon_{2} (E) = \frac{AE_{0}C\left(E-E_{g}\right)^{2}}{\left(E^{2}-E^{2}_{0}\right)^{2}+C^{2}E^{2}}%
+		\cdot \frac{1}{E} && E> E_{g}\\
+        	\epsilon_{2} (E) = 0 && E\leq E_{g}
+\end{empheq}
+\end{subequations}
+\end{center}
+\vfill
+\end{overprint}
+\end{frame}
+
+\begin{frame}{Ellipsometry Analysis Procedure}
+\begin{overprint}
+	\Large
+	\onslide<1>
+	\begin{enumerate}
+	\item
+	High-$\lambda$ Cauchy Model
+	\item
+	Direct Calculation of $n$ and $\kappa$
+	\item
+	Conversion to Oscillator Model
+	\item
+	Refinement of Oscillator Layer Parameters
+	\end{enumerate}
+	\onslide<2>
+	\begin{itemize}
+		\item High-$\lambda$ Cauchy Model
+		\begin{itemize}
+			\large
+			\item Used to determine layer thickness
+			\item Cauchy model applied to transparent region of film (>600nm)
+		\end{itemize}
+	\end{itemize}
+	\onslide<3>
+	\begin{itemize}
+		\item Direct Calculation of $n$ and $\kappa$
+		\begin{itemize}
+			\large
+			\item Numeric calculation of $n$ and $\kappa$ from Fresnel equations
+			\item Used to provide a starting point to base Tauc-Lorentz oscillator model upon
+			\item Calculated values are non-physical
+		\end{itemize}
+	\end{itemize}
+	\onslide<4>
+	\begin{itemize}
+		\item Conversion to Oscillator Model
+		\begin{itemize}
+			\large
+			\item Data set of $n$ and $\kappa$ are used to approximate initial guesses for %
+			T-L oscillator parameters 
+		\end{itemize}
+	\end{itemize}
+	\onslide<5>
+	\begin{itemize}
+		\item Refinement of Oscillator Layer Parameters
+		\begin{itemize}
+			\large
+			\item Software optimization of model parameters
+		\end{itemize}
+	\end{itemize}
+\end{overprint}
+\end{frame}
+
+\begin{frame}{Ellipsometry Model}
+	\begin{center}
+	\normalsize
+	\vspace*{-1em}
+	{\bfseries\large Model Parameters for 20-Pt/Si}\\[1em]
+	\begin{tabular}{l l r r}
+	\toprule
+	Layer&Variable&Thickness (nm)&Value\\
+	\midrule
+	3. T-L Osc.&&75.6&\\
+	&$\epsilon_{1}$ offset&&3.62\\
+	&Amp&&36.54\\
+	&E$_{\mathrm{n}}$&&4.51\\
+	&C&&1.30\\
+	&E$_{\mathrm{g}}$&&2.07\\
+	2. \ce{Pt}&&15.1&\\
+	1. \ce{SiO2}&& 1.1\\
+	0. \ce{Si}&&Substrate&\\
+	\bottomrule
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Raw Ellipsometry Data}
+		\begin{center}
+		\textbf{\large Ellipsometry Data from 20 - Pt/Si}\vspace{0.25cm}
+		\centerline{\includegraphics[width=0.45\textwidth]{./graphics/data/ellipsometry/run-20-pt/psi}%
+				 \hspace{1cm}%
+				 \includegraphics[width=0.45\textwidth]{./graphics/data/ellipsometry/run-20-pt/delta}}
+		\end{center}
+\end{frame}
+
+\begin{frame}{Ellipsometry Model}
+	\begin{center}
+	{\bfseries\large Model Parameters for 20-Pt/Si}\\[1em]
+	\begin{tabular}{l l r r}
+	\toprule
+	Layer&Variable&Thickness (nm)&Value\\
+	\midrule
+	1. T-L Osc. (2)&&49.2&\\
+	&$\epsilon_{1}$ offset&&1.42\\
+	&Amp$_{1}$&&64.71\\
+	&E$_{\mathrm{n 1}}$&&3.69\\
+	&C$_{1}$&&4.44\\
+	&E$_{\mathrm{g1}}$&&1.55\\
+	&Amp$_{2}$&&1.55\\
+	&E$_{\mathrm{n 2}}$&&2.12\\
+	&C$_{2}$&&0.76\\
+	&E$_{\mathrm{g2}}$&&0.001\\
+	0. \ce{STO}&&Substrate&\\
+	\bottomrule
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Raw Ellipsometry Data}
+		\begin{center}
+		\textbf{\large Ellipsometry Data from 28 - STO}\vspace{0.25cm}
+		\centerline{\includegraphics[width=0.45\textwidth]{./graphics/data/ellipsometry/run-28-sto/psi}%
+				 \hspace{1cm}%
+				 \includegraphics[width=0.45\textwidth]{./graphics/data/ellipsometry/run-28-sto/delta}}
+		\end{center}
+\end{frame}
+
+\begin{frame}{Ellipsometry Model}
+	\begin{center}
+	\vspace*{-1em}
+	{\bfseries\large Model Parameters for 28-STO}\\[1em]
+	\begin{tabular}{l l r r}
+	\toprule
+	Layer&Variable&Thickness (nm)&Value\\
+	\midrule
+	1. T-L Osc. (2)&&49.2&\\
+	&$\epsilon_{1}$ offset&&1.42\\
+	&Amp$_{1}$&&64.71\\
+	&E$_{\mathrm{n 1}}$&&3.69\\
+	&C$_{1}$&&4.44\\
+	&E$_{\mathrm{g1}}$&&1.55\\
+	&Amp$_{2}$&&1.55\\
+	&E$_{\mathrm{n 2}}$&&2.12\\
+	&C$_{2}$&&0.76\\
+	&E$_{\mathrm{g2}}$&&0.001\\
+	0. \ce{STO}&&Substrate&\\
+	\bottomrule
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+\end{frame}
+
+\begin{frame}
+\end{frame}
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+

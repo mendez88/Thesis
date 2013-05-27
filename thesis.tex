@@ -1,0 +1,363 @@
+\documentclass[11pt,a4paper,twoside,openright]{report}
+
+% Document based upon the 'Report' class. 
+% Uses 11pt text in standard font families, paper size is globally set to A4, the PDF will be laid out as a two-sided 
+% document (allows different margins on odd/even pages for later binding) and its first page will be a right page. 
+
+\includeonly{%		% comment out lines to not compile these sections when typesetting. 
+	%%Preface
+	./Preface/frontspace,
+	./Preface/copyright,%
+	./Preface/dedication,%
+	./Preface/toc,%
+	./Preface/acknowledgements,%
+	./Preface/abstract,%
+%	./Preface/sommario,%
+	%
+	%%Body
+	%
+	./chapters/intro,%
+	./chapters/materials,%
+	./chapters/synthesis,%
+	./chapters/characterization,%
+	./chapters/fabrication,%
+	./chapters/dataAnalysis,%
+	./chapters/results,%
+	./chapters/conclusion,%
+	./chapters/appendix
+	}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% PACKAGE MANAGEMENT %%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{soul}
+\usepackage{color}
+\usepackage{tocloft}
+\usepackage{graphicx}	% Package for using images (.jpg, .pdf, .png, etc.) as figures. 
+\usepackage[center]{caption}	% Captioning packages for floats (figures, tables, etc.). '[Center]' forces centering
+\usepackage{subfig}
+%\usepackage{subcaption}	% Allows for sub-figures to have their own sub-captions, shouldn't be in TOC
+\usepackage{tabularx} % Allows for automatic sizing for tabular environments (see CTAN for manual)
+\usepackage[super]{cite}	% Automatic citation generation package '[super]' forces superscript citations
+\usepackage{afterpage}	% Package to be used with \clearpage to help keep floats from drifting to end of document. (See CTAN for manual)
+%\usepackage[version=3]{mhchem}	% Automatic formatting of chemical equations and formulas
+\usepackage[method=mhchem]{chemmacros}
+\usepackage{amsmath,amssymb,mathtools}	%Packages for various equation tools
+\usepackage{rotating}	% Allows rotation of objects (figures, tables, etc.). Preferable to use landscape environment in most cases (\begin{lscape})
+\usepackage{xnewcommand}
+\usepackage{siunitx}
+\usepackage{setspace}
+\usepackage{fancyhdr}	% Package for setting up headers and footers
+\usepackage[english]{babel}	% Language setting, not sure why its necessary, but is.
+\usepackage[nodayofweek]{datetime}	% Allows for proper determination of date
+\usepackage{etoolbox} 	% Unimportant for end user. 
+\usepackage{lipsum}	% Allows for automatic creation of filler text. 
+\usepackage[inner=1.5in,outer=1in,top=1in,bottom=1in,pdftex]{geometry} % Defines page layout geometry
+\usepackage{lscape}	% Allows pages to be defined as landscape (environment)
+\usepackage{indentfirst}	% Forces an indent on all paragraphs, including first paragraphs. 
+\usepackage{empheq}	% Used to add braces to groups of equations
+\usepackage[running,modulo]{lineno}	% Adds line numbers (only multiples of 5) to left side margin
+\usepackage{varioref}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{arydshln}
+
+% Hyperref package: used for setting up hyperlinks in the document (TOC, citations, figures, equations, etc.), as 
+% well as adding PDF metadata (author, title, etc.)
+\usepackage[pdftex,%	Informes explicitly use of pdftex for document preparation engine
+		      hyperfigures, % 	Requests hyperlinks from figure citations to their associated figures
+		      pageanchor=true,% 	Necessary for proper hyperlinking of TOC
+		      %pagebackref=true,%
+		      hyperindex=true,%	If index is present, entries will link back to the first appearance of the term
+		      colorlinks=true,	%	Colors links in document (internal: red, citations: green)
+		      citecolor=green,%
+		      bookmarks=true,%	Creates bookmarks list in the final PDF
+		      bookmarksnumbered=true,%	Adds chapter number to the associated bookmark
+		      bookmarksopen=true,%	All bookmark trees open when PDF opened, not working
+		      pdftitle={A Method for Atomic Layer Deposition of Complex Oxide Thin Films},%	Document title
+		      pdfauthor={Brian R. Beatty},%	Document author
+		      pdfsubject={M.S. Thesis},%	Document subject
+		      pdfkeywords={ALD, Atomic Layer Deposition, Ferroelectric, Complex Oxide, Perovskite, %
+		      Lead Titanate, Lead Zirconate Titanate, PbTiO3, PTO, PT, PZT, Thin Film, Epitaxy},
+		      %List of keywords for document
+		      ]{hyperref}	
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% ADJUSTS CHAPTER TITLES CLOSER TO HEADER   %%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+% "\@makechapterhead" applies to ordinary or numbered chapters
+\patchcmd{\@makechapterhead}{\vspace*{50\p@}}{}{}{}
+\patchcmd{\@makechapterhead}{\vskip 40\p@}{\vskip 20\p@}{}{}
+% "\@makeschapterhead" applies to "starred" or un-numbered chapters
+\patchcmd{\@makeschapterhead}{\vspace*{50\p@}}{}{}{}
+\patchcmd{\@makeschapterhead}{\vskip 40\p@}{\vskip 20\p@}{}{}
+
+
+\widowpenalty=7500
+\clubpenalty=7500
+
+\let\origtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{%
+  \begingroup
+  \renewcommand*{\contentsname}{Table of Contents}
+  \origtableofcontents
+  \endgroup}
+
+\renewcommand{\@cftmaketoctitle}{%
+   {\interlinepenalty\@M
+        \par\nobreak
+        {\Huge \bfseries Table of Contents \par\nobreak}
+        \par\nobreak
+    \vskip 20\p@
+    \thispagestyle{fancy}
+  }}  
+  
+  \renewcommand{\@cftmakelottitle}{%
+   {\interlinepenalty\@M
+        \clearpage
+        \par\nobreak
+        {\Huge \bfseries List of Tables \par\nobreak}
+        \par\nobreak
+    \vskip 40\p@
+    \thispagestyle{fancy}
+  }}  
+  
+  \renewcommand{\@cftmakeloftitle}{%
+   {\interlinepenalty\@M
+        \clearpage
+        \par\nobreak
+        {\Huge \bfseries List of Figures \par\nobreak}
+        \par\nobreak
+    \vskip 40\p@
+    \thispagestyle{fancy}
+  }}  
+
+ \setlength{\textfloatsep}{1.5em}
+ \setlength{\intextsep}{1.5em}
+ 
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \thispagestyle{empty}\hbox{}
+\newpage
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+
+{\def\thebibliography#1{\chapter*{\bibname
+	\@mkboth{\bibname}{\bibname}}%
+	\list{[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}%
+	\leftmargin\labelwidth \advance\leftmargin\labelsep
+	\usecounter{enumi}}%
+	\def\newblock{\hskip.11em plus.33em minus.07em}%
+	\sloppy\clubpenalty4000\widowpenalty\clubpenalty
+	\sfcode‘\.=1000\relax}}{}
+\makeatother
+
+\renewcommand{\bibname}{List of References}
+\addto{\captionsenglish}{\renewcommand{\bibname}{List of References}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% MISCELLANEOUS ADJUSTMENTS   %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlipsumdefault{1-2}  % Makes \lipsum automatically produce 2 paragraphs of filler text
+
+\renewcommand{\lipsum}{} % Hide dummy text paragraphs
+
+
+
+\renewcommand{\captionfont}{\normalfont \sffamily \itshape \small}
+%\renewcommand{\contentsname}{Table of Contents}
+
+\pagestyle{empty} % Sets pages to have no header/footer. Will be changed later in the document. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% LAYOUT GEOMETRY ADJUSTMENTS  %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\addtolength{\oddsidemargin} {-0.4 cm} 	% Shrinks the side margins slightly.
+%\addtolength{\evensidemargin} {-0.4 cm}	% Shrinks the side margins slightly. 
+
+\setlength{\headheight}{26pt} 	% Changes the size of the header (the console will complain if it's too small).
+
+\linespread{1.25} 	% Changes line spacing
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%  CHEMICAL EQUATION FORMATTING  %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewtagform{reaction}[R ]{(}{)}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%  PERSONALIZED COMMANDS %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Shortcuts for typesetting certain things quickly (saves time when typing things often). 
+% Always use an empty set of braces after the command unless it has arguments. 
+
+\newcommand{\PTO}{\ce{PbTiO3}}
+
+\newcommand{\PZT}{\ce{PbZr_{x}Ti_{1-x}O3}}
+
+\newcommand{\Deg}{$^{\circ}$}
+\newcommand{\degC}{$^{\circ}$C}
+\newcommand{\Tc}{T$\mathrm{_{C}}$}
+
+\newcommand{\TiIon}{\ce{Ti^{4+}}}
+\newcommand{\OIon}{\ce{O^{2-}}}
+\newcommand{\PbIon}{\ce{Pb^{2+}}}
+\newcommand{\ZrIon}{\ce{Zr^{4+}}}
+\newcommand{\TiOiPr}{Ti-o-\emph{i}-Pr}
+
+\newcommand{\TMHD}{Pb(TMHD)$_{2}$}
+\newcommand{\tmhd}{\TMHD}
+\newcommand{\HFAc}{Pb(HFAc)$_{2}$}
+\newcommand{\hfac}{\HFAc}
+
+\newcommand{\leftstuff}[2][0pt]{\smash{\raisebox{#1}{\llap{#2}}}}
+
+\newcommand{\reword}[1]{%
+	\sethlcolor{yellow}%
+	\hl{#1}%
+	}
+
+\newcommand{\rewrite}[1]{\reword{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% DOCUMENT STARTS HERE  %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document} 	% Now the fun starts.
+
+%%% PREFACE %%%
+\renewcommand{\headrulewidth}{0.3pt}
+{\thispagestyle{empty} % No headers/footers allowed here
+\include{./Preface/frontspace} % Opens a sub-TEX file. ./ is the current local directory. 
+}
+
+{\cleardoublepage \normalfont   % No header/footer on this page, then starts new odd # page
+\include{./Preface/copyright}}
+
+{\normalfont \cleardoublepage
+\include{./Preface/dedication}}
+\fancyfoot[C]{\thepage}
+\fancyhead{}
+
+
+
+{\cleardoublepage
+\pagestyle{fancy}
+%\linenumbers			% Starts numbering of document lines
+\pagenumbering{roman} %Start numbering preface pages using roman numerals (i, ii, iii, iv, ...)
+%\addtocounter{page}{-2}
+%\vspace*{.75truecm}
+\include{./Preface/toc}}
+
+\include{./Preface/acknowledgements}
+%\vspace*{.75truecm} 
+\normalfont \cleardoublepage
+
+\include{./Preface/abstract}
+%\vspace*{.75truecm} 
+\cleardoublepage
+
+\include{./Preface/sommario}
+%\vspace*{.75truecm}
+\cleardoublepage
+
+%%% END OF PREFACE %%%
+\fancyhead[]{}
+\fancyfoot{}
+  % Start numbering pages using arabic numerals (1, 2, 3, 4, ...)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% HEADER/FOOTER SETUP  %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy} 	% Activates fancyhdr package to make customized headers/footers. 
+
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter :\ #1}{}} % Changes definitions for chapter titles in header
+\renewcommand{\sectionmark}[1]{\markright{\thesection :\ #1}}         % Changes definitions for section titles in header
+
+ % Changes geometry settings
+
+\fancyhead[LE,RO]{\bfseries\thepage}    % Page number will be bold and appear on the left side on even pages (LE) and the right side on odd pages (RO).
+                                        
+\fancyhead[RE]{\bfseries\leftmark}    % Uses default settings for right page headers (chapter number and title)
+\fancyhead[LO]{\bfseries\rightmark}     % Uses default settings for left page (section number and title
+\renewcommand{\headrulewidth}{0.3pt}
+
+\clearpage
+\thispagestyle{empty}
+\mbox{}
+\cleardoublepage
+
+%%% BEGIN CONTENT %%%
+
+% Each chapter located in its own sub-file to make it easier to work on them. NOTE: they will not compile on their own. 
+% To view the result, you need to run TeX on the main document (thesis.tex). Can be done by clicking on the open 
+% PDF and pressing command-T. 
+
+% NOTE: 	To get references (to figures and such) to update properly, TeX must be run TWICE. 
+% 	 	To get citations to work properly, you must run: TeX (cmd-T), BibTeX (cmd-shft-B), TeX, TeX. (4 total runs)
+\pagenumbering{arabic}
+\include{./chapters/intro}
+\include{./chapters/materials}
+\include{./chapters/synthesis}
+\include{./chapters/fabrication}
+\include{./chapters/characterization}
+\include{./chapters/dataAnalysis}
+\include{./chapters/results}
+\include{./chapters/conclusion}
+
+%%% END OF CONTENT %%%
+
+\cleardoublepage % Start new odd page
+
+
+% ---- Bibliography ----
+\fancyhead[RE]{\nouppercase{\bfseries\leftmark}}
+\fancyhead[LO]{\nouppercase{\bfseries\rightmark}}
+\fancyhead[RO,LE]{\bfseries\thepage}
+\fancyfoot{}
+\addcontentsline{toc}{chapter}{Bibliography} % Adds Bibliography chapter entry to ToC. 
+\bibliographystyle{unsrt} % This will not sort the bibliography in anyway, but instead will sort by order of appearance in the document. Other styles available.
+
+% Creates the bibliography from the file 'bib_thesis.bib'. Can reference multiple .bib files, just separate with commas
+\begin{spacing}{1}
+\bibliography{./bibliography/bib_thesis} 
+\end{spacing}
+\clearpage
+%\nocite{*}  	% This will add any remaining entries in the BibTeX file to the bibliography, without citing it in the document. 
+
+
+\appendix
+
+\pagestyle{fancy} 
+\fancyfoot{}                                               
+\renewcommand{\chaptermark}[1]{\markboth{\appendixname\ \thechapter.\ #1}{}} 
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}         
+\fancyhead[LE,RO]{\bfseries\thepage}    
+                                        
+\fancyhead[RE]{\bfseries\leftmark}    
+\fancyhead[LO]{\bfseries\rightmark}     
+\renewcommand{\headrulewidth}{0.3pt} 
+
+
+
+\include{./chapters/appendix}
+
+\end{document}
+
+
+
+
+
